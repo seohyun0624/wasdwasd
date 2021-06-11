@@ -15,11 +15,11 @@ clock = pygame.time.Clock()
 
 def runGame():
     bomb_image = pygame.image.load('bomb.png')
-    bomb_image = pygame.transform.scale(bomb_image, (80, 80))
+    bomb_image = pygame.transform.scale(witch_image, (80, 80))
     bombs = []
 
     for i in range(5):
-        rect = pygame.Rect(bomb_image.get_rect())
+        rect = pygame.Rect(witch_image.get_rect())
         rect.left = random.randint(0, size[0])
         rect.top = -100
         dy = random.randint(20, 25)
@@ -53,15 +53,15 @@ def runGame():
                 elif event.key == pygame.K_RIGHT:
                     person_dx = 0
 
-        for bomb in bombs:
-            bomb['rect'].top += bomb['dy']
-            if bomb['rect'].top > size[1]:
-                bombs.remove(bomb)
-                rect = pygame.Rect(bomb_image.get_rect())
+        for witch in witches:
+            witch['rect'].top += witch['dy']
+            if witch['rect'].top > size[1]:
+                witches.remove(witch)
+                rect = pygame.Rect(witch_image.get_rect())
                 rect.left = random.randint(0, size[0])
                 rect.top = -100
                 dy = random.randint(3,9)
-                bombs.append({'rect': rect, 'dy': dy})
+                witches.append({'rect': rect, 'dy': dy})
 
         person.left = person.left + person_dx
 
@@ -72,10 +72,10 @@ def runGame():
 
         screen.blit(person_image, person)
 
-        for bomb in bombs:
-            if bomb['rect'].colliderect(person):
+        for witch in witches:
+            if witch['rect'].colliderect(person):
                 done = True
-            screen.blit(bomb_image, bomb['rect'])
+            screen.blit(witch_image, witch['rect'])
 
         pygame.display.update()
 
